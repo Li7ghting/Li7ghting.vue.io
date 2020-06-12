@@ -8,6 +8,9 @@
 				<el-input type="password" v-model="dataForm.password" placeholder="原密码"></el-input>
 			</el-form-item>
 			<el-form-item label="新密码" prop="newPassword">
+				<el-input type="password" v-model="dataForm.newPassword" placeholder="确认密码"></el-input>
+			</el-form-item>
+			<el-form-item label="确认密码" prop="confirmPassword">
 				<el-input type="password" v-model="dataForm.confirmPassword" placeholder="确认密码"></el-input>
 			</el-form-item>
 		</el-form>

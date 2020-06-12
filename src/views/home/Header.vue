@@ -24,7 +24,7 @@
 				</el-submenu>
 				<el-submenu title="用户设置" index="3">
 					<template slot="title">
-						<span class="header-span"></span>
+						<span class="header-span">{{userName}}</span>
 					</template>
 					<el-menu-item index="3-1" @click="showPasswordBox">
 						<i class="el-icon-edit"></i>修改密码
@@ -51,7 +51,7 @@
 				UpdatePasswordVisible: false
 			}
 		},
-		comments: {
+		components: {
 			UpdatePassword
 		},
 		methods: {
