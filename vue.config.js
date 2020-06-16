@@ -1,4 +1,5 @@
 module.exports = {
+    lintOnSave: false,
     devServer: {
         port: process.env.NODE_ENV == 'production' ? 8000 : 9000,
         proxy: {

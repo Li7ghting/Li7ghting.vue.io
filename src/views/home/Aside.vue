@@ -3,8 +3,8 @@
 		<!--定义系统logo-->
 		<el-aside class="header-logo" :width="asideWidth">
 			<div @click="$router.push({name:'Home'})">
-				<a v-if="foldAside">后台管理中心</a>
-				<a v-else>后台</a>
+				<a v-if="foldAside">{{language.adminCenter}}</a>
+				<a v-else>{{language.admin}}</a>
 			</div>
 		</el-aside>
 		<el-aside class="aside" :width="asideWidth" :class='"icon-size-" + iconSize'>
@@ -20,7 +20,7 @@
 				 background-color="#263238" text-color="#8a979e">
 					<el-menu-item index="home" @click="$router.push({name: 'Home'})">
 						<i class="el-icon-s-home"></i>
-						<span slot="title">首页</span>
+						<span slot="title">{{language.homePage}}</span>
 					</el-menu-item>
 					<el-submenu index="demo">
 						<template slot="title">
@@ -50,9 +50,21 @@
 			return {
 				//保存当前选中的菜单
 				menuActiveName: 'home',
+				// 保存当前侧边栏的宽度
 				asideWidth: '200px',
+				// 用于拼接当前图标的class样式
 				iconSize: 'true'
 			}
+		},
+		computed: {
+				// 国际化
+				language() {
+						return {
+								adminCenter: this.$t("aside.adminCenter"),
+								admin: this.$t("aside.admin"),
+								homePage: this.$t("aside.homePage")
+						}
+				}
 		},
 		watch: {
 			//监听侧边栏是否折叠，折叠则宽度为64px

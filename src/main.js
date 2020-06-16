@@ -7,6 +7,8 @@ import http from '@/http/httpRequest.js'
 import ElementUI from 'element-ui'
 //引入样式
 import 'element-ui/lib/theme-chalk/index.css'
+import i18n from '@/i18n/index'
+
 // 声明使用 element-ui
 Vue.use(ElementUI)
 
@@ -22,5 +24,6 @@ if (process.env.NODE_ENV !== 'production') {
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')
