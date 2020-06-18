@@ -35,6 +35,10 @@
 							<i class="el-icon-document"></i>
 							<span slot="title">ueditor</span>
 						</el-menu-item>
+						<el-menu-item index="Baidu" @click="$router.push({ name: 'Baidu' })">
+								<i class="el-icon-document"></i>
+								<span slot="title">baidu</span>
+						</el-menu-item>
 					</el-submenu>
 				</el-menu>
 			</el-scrollbar>
@@ -43,13 +47,15 @@
 </template>
 
 <script>
+	import {mapState,mapActions} from 'vuex'
+	import {isURL} from '@/utils/validate'
 	export default {
 		name: 'Aside',
 		props: ['foldAside'],
 		data() {
 			return {
 				//保存当前选中的菜单
-				menuActiveName: 'home',
+				// menuActiveName: 'home',
 				// 保存当前侧边栏的宽度
 				asideWidth: '200px',
 				// 用于拼接当前图标的class样式
@@ -57,6 +63,7 @@
 			}
 		},
 		computed: {
+			...mapState('common',['menuActiveName','mainTabs']),
 				// 国际化
 				language() {
 						return {
@@ -66,11 +73,40 @@
 						}
 				}
 		},
+		methods: {
+			...mapActions('common',['updateMenuActiveName','updateMainTabs','updateMainTabsActiveName'])
+		},
 		watch: {
 			//监听侧边栏是否折叠，折叠则宽度为64px
 			foldAside(val) {
 				this.asideWidth = val ? '200px' : '64px'
 				this.iconSize = val
+			},
+			// 监听路由的变化，每次点击菜单触发
+			$route(route) {
+				console.log(route)
+				// 路由变化时，修改当前选中的菜单项
+				this.updateMenuActiveName(route.name)
+				// 是否显示标签页
+				if(route.meta.isTab){
+					// 判断当前标签页数组中是否存在当前选中的标签，根据标签名匹配
+					let tab = this.mainTabs.filter(item => item.name === route.name)[0]
+					// 若当前标签页数组不存在该标签，则向数组中添加标签
+					if(!tab) {
+						// 设置标签页数据
+						tab={
+							name: route.name,
+							params: route.params,
+							query: route.query,
+							type: isURL(route.meta.iframeUrl) ? 'iframe':'module',
+							iframeUrl: route.meta.iframeUrl || ''
+						}
+						// 将数据保存到标签页数组中
+						this.updateMainTabs(this.mainTabs.concat(tab))
+					}
+					// 保存标签页中当前选中的标签名
+					this.updateMainTabsActiveName(route.name)
+				}
 			}
 		}
 	}

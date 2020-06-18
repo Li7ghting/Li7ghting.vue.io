@@ -1,34 +1,34 @@
 <template>
-  <div class='login-wrapper'>
-    <div class='login-content'>
-      <div class='login-main'>
-        <h2 class='login-main-title'>{{language.title}}</h2>
+  <div class="login-wrapper">
+    <div class="login-content">
+      <div class="login-main">
+        <h2 class="login-main-title">{{language.title}}</h2>
         <el-form
-          :model='dataForm'
-          :rules='dataRule'
-          ref='dataForm'
-          @keyup.enter.native='dataFormSubmit()'
+          :model="dataForm"
+          :rules="dataRule"
+          ref="dataForm"
+          @keyup.enter.native="dataFormSubmit()"
           status-icon
         >
-          <el-form-item prop='userName'>
-            <el-input v-model='dataForm.userName' :placeholder='language.userName'></el-input>
+          <el-form-item prop="userName">
+            <el-input v-model="dataForm.userName" :placeholder="language.userName"></el-input>
           </el-form-item>
-          <el-form-item prop='password'>
-            <el-input v-model='dataForm.password' type='password' :placeholder='language.password'></el-input>
+          <el-form-item prop="password">
+            <el-input v-model="dataForm.password" type="password" :placeholder="language.password"></el-input>
           </el-form-item>
           <el-form-item>
             <el-select
-              v-model='dataForm.language'
-              :placeholder='language.language'
-              class='login-select'
-              @change='updateLanguage'
+              v-model="dataForm.language"
+              :placeholder="language.language"
+              class="login-select"
+              @change="updateLanguage"
             >
-              <el-option :label='language.zh' value='zh'></el-option>
-              <el-option :label='language.en' value='en'></el-option>
+              <el-option :label="language.zh" value="zh"></el-option>
+              <el-option :label="language.en" value="en"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button class='login-btn-submit' type='primary' @click='dataFormSubmit()'>登录</el-button>
+            <el-button class="login-btn-submit" type="primary" @click="dataFormSubmit()">登录</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -38,6 +38,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import { setToken } from '@/http/auth'
 export default {
   data() {
     return {
@@ -75,21 +76,19 @@ export default {
   },
   methods: {
     ...mapActions('user', ['updateName']),
-    ...mapActions('common', { updateLang: "updateLanguage" }),
+    ...mapActions('common', { updateLang: "updateLanguage", resetState: "resetState" }),
     //提交表单
     dataFormSubmit() {
       // TODO: 登录逻辑待完善
       //alert('以后完善')
-      this.$http({
-        url: 'auth/token',
-        method: 'get'
-      }).then(response => {
+      this.$http.login.getToken().then(response => {
         this.$message({
-          message: this.$t("login.signInSucess"),
+          message: this.$t("login.signInSuccess"),
           type: 'success'
         })
+        setToken(response.data.token) //保存token
         this.updateName(this.dataForm.userName)
-        console.log("%creponse: ", "color:red", response)
+        console.log("%cresponse: ", "color:red", response)
         this.$router.replace({ name: 'Home' })
       })
     },
@@ -99,6 +98,9 @@ export default {
     }
   },
   created() {
+    // 进入页面时，移除主页保存的state信息
+    localStorage.removeItem("store")
+    this.resetState()
     //页面创建时，获取当前系统语言，并显示在下拉框
     this.dataForm.language = this.$i18n.locale
   }

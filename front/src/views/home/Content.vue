@@ -1,17 +1,22 @@
 <template>
-	<el-main class="content">
-		<el-card class="card" shadow="hover">
-			<keep-alive>
-				<router-view></router-view>
-			</keep-alive>
-		</el-card>
-	</el-main>
+  <el-main class="content">
+    <Tab v-if="$route.meta.isTab"></Tab>
+    <el-card v-else class="card" shadow="hover">
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+    </el-card>
+  </el-main>
 </template>
 
 <script>
-	export default {
-		name: 'Content'
-	}
+import Tab from '@/views/home/Tab.vue'
+export default {
+  name: 'Content',
+  components: {
+    Tab
+  }
+}
 </script>
 
 <style>
