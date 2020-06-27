@@ -1,56 +1,60 @@
 <template>
-  <div class='header'>
+  <div class="header">
     <!--是否展开侧边栏-->
-    <div class='header-title' @click='foldOrOpen'>
-      <a class='el-icon-s-fold' v-if='foldAside' title='language.foldAside' />
-      <a class='el-icon-s-unfold' v-else title='language.unFoldAside' />
+    <div class="header-title" @click="foldOrOpen">
+      <a class="el-icon-s-fold" v-if="foldAside" title="language.foldAside" />
+      <a class="el-icon-s-unfold" v-else title="language.unFoldAside" />
     </div>
     <!--设置、文档。用户设置等-->
-    <div class='header-menu'>
-      <el-menu mode='horizontal' class='header-menu-submenu'>
-        <el-menu-item title='language.setUp' index='1' @click="showSetup">
-          <i class='el-icon-setting'></i>
+    <div class="header-menu">
+      <el-menu mode="horizontal" class="header-menu-submenu">
+        <el-menu-item title="language.setUp" index="1" @click="showSetup">
+          <i class="el-icon-setting"></i>
           {{language.setUp}}
         </el-menu-item>
-        <el-submenu title='language.help' index='2'>
-          <template slot='title'>
-            <i class='el-icon-info'></i>
+        <el-submenu title="language.help" index="2">
+          <template slot="title">
+            <i class="el-icon-info"></i>
             {{language.help}}
           </template>
-          <el-menu-item index='2-1'>
+          <el-menu-item index="2-1">
             <a
-              href='https://www.cnblogs.com/l-y-h/'
-              target='_blank'
-              class='header-submenu-a'
+              href="https://www.cnblogs.com/l-y-h/"
+              target="_blank"
+              class="header-submenu-a"
             >{{language.blogAddress}}</a>
           </el-menu-item>
-          <el-menu-item index='2-2'>
+          <el-menu-item index="2-2">
             <a
-              href='https://www.cnblogs.com/l-y-h/'
-              target='_blank'
-              class='header-submenu-a'
+              href="https://www.cnblogs.com/l-y-h/"
+              target="_blank"
+              class="header-submenu-a"
             >{{language.codeAddress}}</a>
           </el-menu-item>
         </el-submenu>
-        <el-submenu title='language.userSetUp' index='3'>
-          <template slot='title'>
-            <span class='header-span'>{{userName}}</span>
+        <!--用户设置-->
+        <el-submenu title="language.userSetUp" index="3">
+          <template slot="title">
+            <span class="header-span">
+              <img src="~@/assets/user.gif" :alt="userName" />
+              {{userName}}
+            </span>
           </template>
-          <el-menu-item index='3-1' @click='showPasswordBox'>
-            <i class='el-icon-edit'></i>
+          <el-menu-item index="3-1" @click="showPasswordBox">
+            <i class="el-icon-edit"></i>
             {{language.updatePassword}}
           </el-menu-item>
-          <el-menu-item index='3-2' @click='logout'>
-            <i class='el-icon-close'></i>
+          <el-menu-item index="3-2" @click="logout">
+            <i class="el-icon-close"></i>
             {{language.logOut}}
           </el-menu-item>
         </el-submenu>
       </el-menu>
     </div>
     <!--密码修改框-->
-    <UpdatePassword v-if='UpdatePasswordVisible' ref='updatePassword'></UpdatePassword>
+    <UpdatePassword v-if="UpdatePasswordVisible" ref="updatePassword"></UpdatePassword>
     <!--设置框-->
-		<Setup v-if="setUpVisible" ref="setUp"></Setup>
+    <Setup v-if="setUpVisible" ref="setUp"></Setup>
   </div>
 </template>
 
@@ -64,8 +68,8 @@ export default {
     return {
       foldAside: true,
       //userName: 'admin', // 引入vuex后，删除该属性，避免冲突
-			UpdatePasswordVisible: false,
-			setUpVisible: false
+      UpdatePasswordVisible: false,
+      setUpVisible: false
     }
   },
   computed: {
@@ -89,16 +93,16 @@ export default {
     }
   },
   components: {
-		UpdatePassword,
-		Setup
+    UpdatePassword,
+    Setup
   },
   methods: {
-		showSetup() {
-			this.setUpVisible = true,
-			this.$nextTick(()=>{
-				this.$refs.setUp.init()
-			})
-		},
+    showSetup() {
+      this.setUpVisible = true,
+        this.$nextTick(() => {
+          this.$refs.setUp.init()
+        })
+    },
     showPasswordBox() {
       this.UpdatePasswordVisible = true
       // 表示数据渲染后，执行密码框初始化

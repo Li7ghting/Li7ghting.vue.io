@@ -125,7 +125,6 @@ export default {
       let tab = this.mainTabs.filter(item => item.name === this.mainTabsActiveName)[0]
       // 先移除标签
       this.removeTabHandle(tab.name)
-      console.log(tab)
       this.$nextTick(() => {
         // 移除渲染后，再重新添加标签数组，并跳转路由
         this.updateMainTabs(tabs)

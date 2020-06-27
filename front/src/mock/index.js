@@ -1,8 +1,11 @@
 import Mock from 'mockjs'
 import * as login from './modules/login'
+import * as menu from './modules/menu'
 
 // 通过isOpen 参数设置是否拦截mock功能
 fnCreate(login, true)
+fnCreate(menu, true)
+
 /**
  * 创建mock模拟数据
  * @param {*} mod 模块
