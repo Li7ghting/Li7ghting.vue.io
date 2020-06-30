@@ -52,4 +52,15 @@ public interface TreeMenuService {
      */
     boolean deleteById(Long menuId);
 
+    /**
+     * 查询全部数据
+     * @return 对象列表
+     */
+    List<TreeMenu> queryAll();
+
+    /**
+     * 查询数据库数据，并处理后返回 树形数据
+     * @return 树形数据
+     */
+    List<TreeMenu> listWithTree();
 }

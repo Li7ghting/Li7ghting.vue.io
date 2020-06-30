@@ -1,8 +1,10 @@
 package com.lcg.admin_template.back.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 树形菜单(TreeMenu)实体类
@@ -34,6 +36,11 @@ public class TreeMenu implements Serializable {
     */
     private Integer sort;
 
+    /**
+     * 用于保存一个菜单的子菜单
+     */
+    @TableField(exist = false)
+    private List<TreeMenu> treeMenu;
 
     public Long getMenuId() {
         return menuId;
@@ -74,5 +81,6 @@ public class TreeMenu implements Serializable {
     public void setSort(Integer sort) {
         this.sort = sort;
     }
+
 
 }
