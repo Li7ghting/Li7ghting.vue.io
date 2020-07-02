@@ -18,7 +18,7 @@ Vue.prototype.$http = http
 
 //非生产环境，适配mockjs模拟数据
 if (process.env.NODE_ENV !== 'production') {
-  require('@/mock')
+  //require('@/mock')
 }
 
 new Vue({

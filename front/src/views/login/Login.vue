@@ -88,8 +88,11 @@ export default {
         })
         setToken(response.data.token) //保存token
         this.updateName(this.dataForm.userName)
-        console.log("%cresponse: ", "color:red", response)
-        this.$router.replace({ name: 'Home' })
+        console.log("%cresponse: ", "color:red", response.data)
+        // this.$router.replace({ name: 'Home' })
+      }),
+      this.$http.login.testTree().then(response => {
+        console.log("response---: ",response.data)
       })
     },
     updateLanguage() {

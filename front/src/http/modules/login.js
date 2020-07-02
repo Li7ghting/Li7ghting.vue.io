@@ -6,3 +6,10 @@ export function getToken() {
     method: 'get'
   })
 }
+
+export function testTree() {
+  return http({
+    url: '/treeMenu/selectAllWithTree',
+    method: 'get'
+  })
+}
